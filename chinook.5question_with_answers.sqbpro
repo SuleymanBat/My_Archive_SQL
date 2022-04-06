@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:\Users\suley\Desktop\My_SQLDatabase\My_Archive_SQL\chinook.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="125"/><column_width id="3" width="5109"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,6:maintracks"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="albums" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="81"/><column index="2" value="300"/><column index="3" value="77"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="customers" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="106"/><column index="2" value="97"/><column index="3" value="94"/><column index="4" value="300"/><column index="5" value="300"/><column index="6" value="151"/><column index="7" value="59"/><column index="8" value="109"/><column index="9" value="103"/><column index="10" value="149"/><column index="11" value="141"/><column index="12" value="204"/><column index="13" value="123"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="invoices" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="91"/><column index="2" value="106"/><column index="3" value="144"/><column index="4" value="300"/><column index="5" value="151"/><column index="6" value="107"/><column index="7" value="126"/><column index="8" value="151"/><column index="9" value="57"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="media_types" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="116"/><column index="2" value="186"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="playlist_track" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="103"/><column index="2" value="90"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="playlists" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="103"/><column index="2" value="212"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tracks" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort><column index="7" mode="0"/></sort><column_widths><column index="1" value="77"/><column index="2" value="300"/><column index="3" value="81"/><column index="4" value="116"/><column index="5" value="80"/><column index="6" value="300"/><column index="7" value="112"/><column index="8" value="71"/><column index="9" value="89"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">/*WRITE A QUERY THAT RETURNS TRACK NAME AND ITS COMPOSER FROM 
+TRACKS TABLE*/
+SELECT name, Composer
+FROM tracks;
+/*WRITE A QUERY THAT RETURNS ALL COLUMNS FROM TRACKS TABLE*/
+SELECT *
+FROM tracks;
+/*WRITE A QUERY THAT RETURNS THE NAME OF COMPOSERS OF EACH TRACK*/
+SELECT Composer
+FROM tracks;
+SELECT DISTINCT Composer
+FROM tracks;
+/*WRITE A QUERY THAT RETURNS UNIQUE ALBUMID, MEDIATYPEID FROM 
+TRACKS TABLE*/
+SELECT COUNT(DISTINCT AlbumId),  MediaTypeId
+FROM tracks;
+SELECT DISTINCT AlbumId,  MediaTypeId
+FROM tracks;
+/*WRITE A QUERY THAT RETURNS TRACK NAME AND TRACKID OF ‘Jorge Ben’*/
+SELECT Name, TrackId
+FROM tracks
+WHERE Composer = 'Jorge Ben';
+/*WRITE A QUERY THAT RETURNS ALL INFO OF THE INVOICES OF WHICH TOTAL AMOUNT IS GREATER THAN $25*/
+SELECT *
+FROM invoices
+WHERE total &gt; 25;
+/*WRITE A QUERY THAT RETURNS ALL INFO OF THE INVOICES OF WHICH TOTAL AMOUNT IS LESS THAN $15. 
+JUST RETURN 5 ROWS*/
+SELECT *
+FROM invoices
+WHERE total &lt; 15
+LIMIT 5;
+/*WRITE A QUERY THAT RETURNS ALL INFO OF THE INVOICES OF WHICH 
+TOTAL AMOUNT IS GREATER THAN $10. THEN SORT THE TOTAL AMOUNTS 
+IN DESCENDING ORDER, LASTLY DISPLAY TOP 2 ROWS*/
+SELECT *
+FROM invoices
+WHERE total &gt; 10
+ORDER BY total DESC
+LIMIT 2;
+/*WRITE A QUERY THAT RETURNS ALL INFO OF THE INVOICES OF WHICH 
+BILLING COUNTRY IS NOT CANADA. THEN SORT THE TOTAL AMOUNTS IN 
+ASCENDING ORDER, LASTLY DISPLAY TOP 10 ROWS*/
+SELECT *
+FROM invoices
+WHERE NOT BillingCountry = 'Canada' 
+ORDER BY total ASC
+LIMIT 10;
+/*WRITE A QUERY THAT RETURNS INVOICEID, CUSTOMERID AND TOTAL 
+DOLLAR AMOUNT FOR EACH INVOICE. THEN SORT THEM FIRST BY 
+CUSTOMERID IN ASCENDING, THEN TOTAL DOLLAR AMOUNT IN 
+DESCENDING ORDER.*/
+SELECT InvoiceId, CustomerId, total
+FROM invoices
+ORDER BY CustomerId ASC, total DESC;
+/*WRITE A QUERY THAT RETURNS ALL TRACK NAMES THAT START WITH ‘B’ 
+AND END WITH ‘S’*/
+SELECT Name
+FROM tracks
+WHERE Name LIKE 'B%S';
+/*WRITE A QUERY THAT RETURNS THE NEWEST DATE AMONG THE INVOICE 
+DATES BETWEEN 2008 AND 2011*/
+SELECT InvoiceDate as NEWEST_DATE
+FROM invoices
+WHERE InvoiceDate BETWEEN '2008-01-01' AND '2011-01-01'
+ORDER BY InvoiceDate DESC
+LIMIT 1;
+/*WRITE A QUERY THAT RETURNS THE FIRST AND LAST NAME OF THE 
+CUSTOMERS WHO HAVE ORDERS FROM NORWAY AND BELGIUM*/
+SELECT FirstName, LastName, country
+FROM customers
+WHERE country  IN ('Norway', 'Belgium');
+/*WRITE A QUERY THAT RETURNS THE TRACK NAMES OF ‘ZAPPA’*/
+SELECT Name, Composer
+FROM tracks
+WHERE Composer  like '%Zappa%';
+/*HOW MANY TRACKS AND INVOICES ARE THERE IN THE DIGITAL MUSIC 
+STORE, DISPLAY SEPERATELY*/
+SELECT COUNT(*)
+FROM tracks;
+SELECT COUNT(*)
+FROM invoices;
+/*HOW MANY COMPOSERS ARE THERE IN THE DIGITAL MUSIC STORE*/
+SELECT count(composer)
+FROM tracks;
+SELECT count(DISTINCT composer)
+FROM tracks;
+
+/*HOW MANY TRACKS DOES EACH ALBUM HAVE, DISPLAY ALBUMID AND 
+NUMBER OF TRACKS SORTED FROM HIGHEST TO LOWEST*/
+SELECT AlbumId, count(*) number_of_tracks
+FROM tracks
+GROUP BY AlbumId
+ORDER BY count(*) DESC;
+/*WRITE A QUERY THAT RETURNS TRACK NAME HAVING THE MINIMUM AND 
+MAXIMUM DURATION, DISPLAY SEPERATELY*/
+SELECT name, MIN(Milliseconds)
+FROM tracks;
+SELECT name, MAX(Milliseconds)
+FROM tracks;
+/*WRITE A QUERY THAT RETURNS THE TRACKS HAVING DURATION LESS 
+THAN THE AVERAGE DURATION*/
+SELECT *
+FROM tracks
+WHERE Milliseconds &lt; (SELECT AVG(Milliseconds) FROM tracks);
+/*WRITE A QUERY THAT RETURNS THE TOTAL NUMBER OF EACH 
+COMPOSER’s TRACK.*/
+SELECT Composer, COUNT(*)
+FROM tracks
+GROUP BY Composer;
+------------------------------------------------
+SELECT Composer, count(Composer)
+FROM tracks
+GROUP BY Composer;
+------------------------------------------------
+SELECT Composer, count(Composer)
+FROM tracks
+WHERE Composer is not NULL
+GROUP by Composer;
+/*WRITE A QUERY THAT RETURNS THE GENRE OF EACH TRACK*/
+
+
+
+
+
+
+
+
+</sql><sql name="SQL 2">/*Questions:
+1. How many tracks does each album have? Your solution should include Album id and its number of tracks sorted from highest to lowest.*/
+SELECT AlbumId, COUNT(AlbumId) Amount_of_tracks
+FROM tracks
+GROUP BY AlbumId
+ORDER BY  COUNT(AlbumId) DESC;
+
+
+/*2. Find the album title of the tracks. Your solution should include track name and its album title.*/
+SELECT tracks.name, albums.Title
+FROM tracks
+LEFT JOIN albums
+ON tracks.AlbumId = albums.AlbumId;
+
+/*3. Find the minimum duration of the track in each album. Your solution should include album id, album title and duration of the track sorted from highest to lowest.*/
+SELECT tracks.AlbumId,albums.Title, MIN(Milliseconds) duration_of_track
+FROM tracks
+LEFT JOIN albums
+ON tracks.AlbumId = albums.AlbumId
+GROUP BY albums.Title
+ORDER BY MIN(Milliseconds);
+/*4. Find the total duration of each album. Your solution should include album id, album title and its total duration sorted from highest to lowest.*/
+SELECT albums.AlbumId, albums.Title, SUM(Milliseconds) total_duration
+FROM tracks
+LEFT JOIN albums
+ON tracks.AlbumId = albums.AlbumId
+GROUP BY albums.AlbumId
+ORDER BY SUM(Milliseconds) DESC;
+/*5. Based on the previous question, find the albums whose total duration is higher than 70 minutes. Your solution should include album title and total duration.*/
+SELECT albums.AlbumId, albums.Title, SUM(Milliseconds) total_duration
+FROM tracks
+LEFT JOIN albums
+ON tracks.AlbumId = albums.AlbumId
+WHERE Milliseconds &gt; 420000--(70 minutes = 42000 milliseconds)
+GROUP BY albums.AlbumId
+ORDER BY SUM(Milliseconds) DESC;
+</sql><current_tab id="1"/></tab_sql></sqlb_project>
