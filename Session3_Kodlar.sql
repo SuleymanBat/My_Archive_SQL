@@ -2,35 +2,33 @@
 /*===================================================
 LIKE
 ====================================================*/
-/* tracks tablosunda Composer sutunu Bach ile biten 
-kayıtların Name bilgilerini listeyen sorguyu yazınız*/
+/* Composer column in tracks table ends with Bach
+Write the query that lists the Name information of the records*/
 SELECT name,Composer
 FROM tracks
 WHERE Composer like '%Bach';
 	
-/* albulms tablosunda Title (başlık) sutununda Greatest
- içeren kayıtların tüm bilgilerini listeyen sorguyu yazınız*/
+/* Greatest in the Title column in the albulms table
+  Write the query that lists all the information of the records containing */
  SELECT *
  FROM albums
  WHERE Title LIKE '%Greatest%';
  
- /* invoices tablosunda, 2010 ve 2019 arası bir tarihte (InvoiceDate)
- Sadece şubat aylarında gerçekleşmiş olan faturaların tüm bilgilerini 
- listeleyen sorguyu yazınız*/
+/* In the invoices table, on a date between 2010 and 2019 (InvoiceDate)
+  All information of invoices realized only in February write the query that lists */
  
  SELECT *
  FROM invoices
  WHERE InvoiceDate LIKE '201_-02%';
  
-/* customers tablosunda, isimleri (FirstName) üç harfli olan müşterilerin 
-FirstName,LastName ve City bilgilerini listeleyen sorguyu yazınız*/
+/* In the customers table, write the query that lists the FirstName, LastName 
+and City information of the customers whose names (FirstName) are three letters*/
  SELECT FirstName,LastName,City
  FROM customers
  WHERE FirstName LIKE '___';
 
-/* customers tablosunda, soyisimleri Sch veya Go ile başlayan 
-müşterilerin FirstName, LastName ve City bilgilerini listeleyen
- sorguyu yazınız*/
+/* in the customers table, with surnames starting with Sch or Go
+Write the query that lists the customers FirstName, LastName and City information*/
  SELECT FirstName, LastName, City 
  FROM customers
  WHERE LastName LIKE 'sch%' OR LastName LIKE 'go%';
@@ -41,7 +39,7 @@ müşterilerin FirstName, LastName ve City bilgilerini listeleyen
 	
 -- COUNT
 ------------------------------------------------------------------------------
-/* invoices tablosunda kaç adet fatura bulunduğunu döndüren sorgu yazınız */
+/* Write a query that returns the number of invoices in the invoices table */
  SELECT count(*) -- tamamını sayar (null dahildir)
  FROM invoices;
 
@@ -52,35 +50,33 @@ müşterilerin FirstName, LastName ve City bilgilerini listeleyen
  FROM invoices
  WHERE BillingState IS NULL;
  
-/* tracks tablosunda kaç adet farklı Composer bulunduğunu döndüren sorguyu yazınız*/
+/* Write a query that returns how many different Composers are in the tracks table*/
  SELECT count(DISTINCT Composer) as num_of_composer
  FROM tracks ;
  
  
 -- MIN,MAX
 -------------------------------------------------------------------------------------------------	
-/* tracks tablosundaki şarkı süresi en kısa olan şarkının adını ve süresi listeleyen
-sorguyu yaziniz */
+/* Write the query that lists the name and duration of the song with the shortest song duration in the tracks table */
  SELECT name as song_name, MIN(Milliseconds)/1000.0 as min_duration_sc
  FROM tracks;
  
- /*students tablosundaki en düşük ve en yüksek notu listeleyen sorguyu yazınız */
-
+/*Write the query that lists the lowest and highest grades in the students table */
  SELECT MIN(Grade) as min_grade ,MAX(grade) as max_grade
  FROM students;
  
  -- SUM,AVG
 -------------------------------------------------------------------------------------------------	
-/* invoices tablosundaki faturaların toplam değerini listeyiniz */
+/* List the total value of the invoices in the invoices table */
  SELECT ROUND(SUM(total)) as total_amount
  FROM invoices;
 
-/* invoices tablosundaki faturaların ortalama değerini listeyiniz */
+/* List the average value of the invoices in the invoices table */
   SELECT ROUND(AVG(total),3) as avg_amount
   FROM invoices;
 	
-/* tracks tablosundaki şarkıların ortalama süresinden daha uzun olan 
-şarkıların adlarını listeleyiniz */
+/* longer than the average duration of the songs in the tracks table
+list the names of the songs */
 
  SELECT AVG(Milliseconds) as avg_duration
  FROM tracks;
@@ -89,9 +85,8 @@ sorguyu yaziniz */
  FROM tracks
  WHERE Milliseconds > 393599.22;
  
- /*Bu yöntem hard-coded olduğu için çok mantıklı bir çözüm değil. 
-alt-sorgu(sub-query) ile daha doğru bir yaklaşım olacaktır sonraki
- bölümlerde alt-sorguyu ayrıntılı bir şekilde inceleyeceğiz.*/
+/* This method is not a very logical solution because it is hard-coded.
+A more correct approach would be with a sub-query. */
  
  SELECT name, Milliseconds
  FROM tracks
@@ -101,17 +96,14 @@ alt-sorgu(sub-query) ile daha doğru bir yaklaşım olacaktır sonraki
  GROUP BY
 ====================================================*/
 
-/* tracks tablosundaki her bir Bestecisinin (Composer) 
-toplam şarkı sayısını Besteci adına göre gruplandırarak 
-listeleyen sorguyu yazınız. */
+/* Write a query that lists the total number of songs of each Composer in the tracks table,
+ grouped by Composer name. */
  SELECT Composer, Count(name) 
  FROM tracks
  WHERE Composer IS NOT NULL
  GROUP BY Composer;
  
- /* invoices tablosundaki her bir ülkenin (BillingCountry) 
- fatura ortalamalarını hesaplayan ve ülke bilgileri ile 
- listeleyen sorguyu yazınız.*/
+/* Write the query that calculates the invoice averages of each country (BillingCountry) in the invoices table and lists them with country information.*/
  
  SELECT BillingCountry, ROUND(AVG(total), 2) as avg_amount
  FROM invoices
