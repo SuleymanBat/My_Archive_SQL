@@ -2,7 +2,7 @@
 	SELECT
 ===================================================*/
 
-/* tracks tablosundaki track isimlerini (name) sorgulayınız */
+/* tracks tablosundaki track isimlerini (name) sorgulayınız. */
  SELECT name FROM tracks;
 
 /* tracks tablosundaki besteci(Composer) ve şarkı 
